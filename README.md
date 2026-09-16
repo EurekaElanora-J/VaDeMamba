@@ -103,16 +103,36 @@ Experiments use the **BraTS 2023 Adult Glioma** dataset across 28 unique biologi
 
 ## 6. Quick Reproduction
 
-See [`docs/reproducibility.md`](docs/reproducibility.md) for detailed workflow instructions.
+See [`docs/reproducibility.md`](docs/reproducibility.md) for workflow context and locked cohort/checkpoint provenance.
 
-### Reproducing Tables & Figures from Retained Data (Zero GPU / BraTS required):
+### Available directly from this public repository
+
+The public clone supports environment setup, inspection of the active source and experiment scripts, configuration/split-manifest review, and the lightweight synthetic test suite. It does not include raw patient data, trained weight binaries, or sealed final-test outputs.
+
 ```bash
-python experiments/generate_final_figures_and_tables.py
+conda env create -f environment.yml
+conda activate vademamba
+pytest tests/
 ```
 
-### Running Test Suite:
+The test suite uses synthetic tensors and does not require BraTS data, checkpoints, or a GPU. The active implementation is in `src/`, with the final evaluation procedure documented in `experiments/run_final_test_campaign.py`.
+
+### Requires separately approved artifacts
+
+The following cannot currently be reproduced directly from the public clone:
+
+- Held-out final-test inference and exact final-test reruns require authorized BraTS data and released trained checkpoints.
+- Final publication tables and figures require retained sealed final-test artifacts; `python experiments/generate_final_figures_and_tables.py` is not runnable against the public clone alone.
+
+This separation is intentional: raw BraTS volumes are omitted for dataset licensing/access considerations, checkpoint binaries are not committed to normal Git history, and sealed patient-derived final-test artifacts are internal unless separately released after appropriate review.
+
+### Internal/approved-artifact workflows
+
+With the necessary data, checkpoint, and sealed-artifact access approved, the scripts below define the corresponding workflows:
+
 ```bash
-pytest tests/
+python experiments/run_final_test_campaign.py
+python experiments/generate_final_figures_and_tables.py
 ```
 
 ---
@@ -120,46 +140,29 @@ pytest tests/
 ## 7. Repository Structure
 
 ```
-├── checkpoints/              # Checkpoint manifest and SHA-256 provenance
-│   └── deployment_predictors_manifest.json
-│                            # Weights are not committed to normal Git; they will
-│                            # be distributed separately if/when released.
+VaDeMamba/
+├── checkpoints/
+│   └── deployment_predictors_manifest.json  # SHA-256 provenance; no weight binaries
 ├── configs/                  # Deployment and model configurations
-│   ├── deployment_config.yaml
-│   └── backbone_config.json
 ├── data/
 │   └── splits/               # Subject-disjoint cohort split manifest
 ├── docs/
-│   └── reproducibility.md    # Full step-by-step reproduction documentation
-├── experiments/              # Executable reproduction scripts
-│   ├── evaluate_gate2_candidates_dev_oof.py
-│   ├── train_hardened_deployment_predictors.py
-│   ├── benchmark_adaptive_components.py
-│   ├── run_final_test_campaign.py
-│   ├── generate_final_figures_and_tables.py
-│   └── build_reproducibility_package.py
-├── quarantine/               # Deprecated/dangerous historical scripts
-│   ├── README.md
-│   ├── train_final_deployment_predictors.py
-│   └── benchmark_final_end_to_end.py
+│   └── reproducibility.md
+├── experiments/              # Audited active experiment/reproduction scripts
 ├── results/
-│   ├── codebase_audit/       # Full forensic audit documentation
-│   └── final_campaign/       # Sealed evaluation results, tables, and figures
-│       ├── tables/           # Tables 1 through 10 (CSV + MD)
-│       ├── figures/          # Figures 1 through 10 (300 DPI PNG)
-│       └── reproducibility_manifest.json
+│   └── codebase_audit/
+│       └── public_artifact_curation.md
 ├── src/
-│   ├── models/               # Modular Mamba backbone & Tiled routing
-│   ├── data/                 # Preprocessing & sampling
-│   ├── losses/               # Coupled compound loss
-│   └── metrics/              # Brier score & evaluation metrics
-├── tests/                    # Lightweight automated unit tests
-├── requirements.txt          # Python package requirements
-├── environment.yml           # Conda environment specification
-├── LICENSE                   # Apache 2.0 Open Research License
-├── CITATION.cff              # Citation metadata
-└── .gitignore                # Excludes caches and raw medical data
+├── tests/                    # Lightweight synthetic tests
+├── .gitignore
+├── CITATION.cff
+├── LICENSE
+├── README.md
+├── environment.yml
+└── requirements.txt
 ```
+
+Raw BraTS data, checkpoint `.pt`/`.pth` binaries, workspace traces, quarantine/historical material, development features, caches, and sealed final-test outputs are intentionally omitted from the public repository.
 
 ---
 
