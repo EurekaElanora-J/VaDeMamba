@@ -1,0 +1,30 @@
+{
+  "model_name": "VaDeMamba_ThreeStageVolumetric",
+  "in_channels": 4,
+  "stem_channels": [48, 96],
+  "num_classes": 4,
+  "d_state": 16,
+  "d_conv": 3,
+  "expand": 1,
+  "spatial_shape": [128, 128, 128],
+  "latent_shape": [32, 32, 32],
+  "tile_shape": [16, 16, 16],
+  "num_macro_tiles": 8,
+  "parameters": {
+    "stem": 129744,
+    "block1": 112032,
+    "block2": 112032,
+    "block3": 112032,
+    "head": 388,
+    "total": 466228
+  },
+  "gmac_breakdown": {
+    "stem": 5.44,
+    "block1": 1.44,
+    "block2_full": 1.44,
+    "block3_full": 1.44,
+    "head": 0.013,
+    "total_full_k3": 9.773,
+    "total_vademamba_4_2": 7.973
+  }
+}

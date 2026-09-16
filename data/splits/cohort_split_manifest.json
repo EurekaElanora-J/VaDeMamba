@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "study": "VaDeMamba: Learning the Value of Mamba Depth for Spatially Adaptive 3D Brain Tumor Segmentation",
+    "task": "Main Experiment Cohort Partition Manifest",
+    "seed": 42,
+    "created_at": "2026-09-09T11:22:02.034358",
+    "status": "LOCKED",
+    "total_unique_subjects": 28,
+    "total_scans": 40,
+    "partition_rule": "Subject-grouped stratification by tumor burden, 100% subject-disjoint, zero longitudinal leakage"
+  },
+  "summary": {
+    "BACKBONE_TRAIN": {
+      "unique_subjects_count": 14,
+      "scans_count": 20,
+      "multi_scan_subjects_count": 6,
+      "single_scan_subjects_count": 8,
+      "expected_patches_per_epoch": 40,
+      "mean_wt_voxels": 105198.85,
+      "mean_tc_voxels": 30373.0,
+      "mean_et_voxels": 15850.15,
+      "et_present_ratio": 0.95
+    },
+    "PREDICTOR_CASCADE_DEV": {
+      "unique_subjects_count": 6,
+      "scans_count": 8,
+      "multi_scan_subjects_count": 2,
+      "single_scan_subjects_count": 4,
+      "macro_regions_16x16": 4096,
+      "micro_regions_8x8": 32768,
+      "mean_wt_voxels": 76182.5,
+      "mean_tc_voxels": 19869.5,
+      "mean_et_voxels": 13831.125,
+      "et_present_ratio": 1.0
+    },
+    "UNTOUCHED_FINAL_TEST": {
+      "unique_subjects_count": 8,
+      "scans_count": 12,
+      "multi_scan_subjects_count": 4,
+      "single_scan_subjects_count": 4,
+      "macro_regions_16x16": 6144,
+      "micro_regions_8x8": 49152,
+      "mean_wt_voxels": 103998.25,
+      "mean_tc_voxels": 31028.333333333332,
+      "mean_et_voxels": 20164.833333333332,
+      "et_present_ratio": 1.0,
+      "access_rule": "PERMANENTLY UNTOUCHED until final evaluation of all locked models."
+    }
+  },
+  "cohorts": {
+    "BACKBONE_TRAIN": {
+      "subjects": [
+        "BraTS-GLI-00002",
+        "BraTS-GLI-00005",
+        "BraTS-GLI-00009",
+        "BraTS-GLI-00012",
+        "BraTS-GLI-00017",
+        "BraTS-GLI-00020",
+        "BraTS-GLI-00022",
+        "BraTS-GLI-00025",
+        "BraTS-GLI-00026",
+        "BraTS-GLI-00028",
+        "BraTS-GLI-00030",
+        "BraTS-GLI-00031",
+        "BraTS-GLI-00032",
+        "BraTS-GLI-00043"
+      ],
+      "scans": [
+        "BraTS-GLI-00002-000",
+        "BraTS-GLI-00005-000",
+        "BraTS-GLI-00009-000",
+        "BraTS-GLI-00009-001",
+        "BraTS-GLI-00012-000",
+        "BraTS-GLI-00017-000",
+        "BraTS-GLI-00017-001",
+        "BraTS-GLI-00020-000",
+        "BraTS-GLI-00020-001",
+        "BraTS-GLI-00022-000",
+        "BraTS-GLI-00022-001",
+        "BraTS-GLI-00025-000",
+        "BraTS-GLI-00026-000",
+        "BraTS-GLI-00028-000",
+        "BraTS-GLI-00030-000",
+        "BraTS-GLI-00031-000",
+        "BraTS-GLI-00031-001",
+        "BraTS-GLI-00032-000",
+        "BraTS-GLI-00032-001",
+        "BraTS-GLI-00043-000"
+      ]
+    },
+    "PREDICTOR_CASCADE_DEV": {
+      "subjects": [
+        "BraTS-GLI-00000",
+        "BraTS-GLI-00006",
+        "BraTS-GLI-00008",
+        "BraTS-GLI-00011",
+        "BraTS-GLI-00016",
+        "BraTS-GLI-00033"
+      ],
+      "scans": [
+        "BraTS-GLI-00000-000",
+        "BraTS-GLI-00006-000",
+        "BraTS-GLI-00008-000",
+        "BraTS-GLI-00008-001",
+        "BraTS-GLI-00011-000",
+        "BraTS-GLI-00016-000",
+        "BraTS-GLI-00016-001",
+        "BraTS-GLI-00033-000"
+      ]
+    },
+    "UNTOUCHED_FINAL_TEST": {
+      "subjects": [
+        "BraTS-GLI-00003",
+        "BraTS-GLI-00014",
+        "BraTS-GLI-00018",
+        "BraTS-GLI-00019",
+        "BraTS-GLI-00021",
+        "BraTS-GLI-00024",
+        "BraTS-GLI-00035",
+        "BraTS-GLI-00036"
+      ],
+      "scans": [
+        "BraTS-GLI-00003-000",
+        "BraTS-GLI-00014-000",
+        "BraTS-GLI-00014-001",
+        "BraTS-GLI-00018-000",
+        "BraTS-GLI-00019-000",
+        "BraTS-GLI-00021-000",
+        "BraTS-GLI-00021-001",
+        "BraTS-GLI-00024-000",
+        "BraTS-GLI-00024-001",
+        "BraTS-GLI-00035-000",
+        "BraTS-GLI-00036-000",
+        "BraTS-GLI-00036-001"
+      ]
+    }
+  },
+  "verification_results": {
+    "unique_subject_counts_match": true,
+    "scan_counts_match": true,
+    "zero_duplicates": true,
+    "zero_subject_overlap": true,
+    "zero_longitudinal_leakage": true,
+    "all_modalities_present": true,
+    "stratification_balanced": true
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "gate1_deployment": {
+    "path": "checkpoints/gate1_deployment.pt",
+    "sha256": "7594f0cef779660b724c23270039699b062f90cdefe60b407b275ed47e3dafeb",
+    "model_type": "HuberMLP",
+    "in_dim": 7,
+    "features": [
+      "U1_entropy",
+      "U1_margin",
+      "P1_BG",
+      "P1_NCR",
+      "P1_ED",
+      "P1_ET",
+      "P1_max"
+    ]
+  },
+  "gate1_complexity_deployment": {
+    "path": "checkpoints/gate1_complexity_deployment.pt",
+    "sha256": "e353f3334659360c224e019dba572aca59542af9ec57a488098a41bebe2b0a78",
+    "model_type": "HuberMLP",
+    "in_dim": 3,
+    "features": [
+      "C_grad",
+      "C_freq",
+      "C_entropy"
+    ]
+  },
+  "gate2_deployment": {
+    "path": "checkpoints/gate2_deployment.pt",
+    "sha256": "71a6fbd9313963fb5eb573da8a573a375764096be464378069b77c9a533d9009",
+    "model_type": "PairwiseRankNet",
+    "in_dim": 16,
+    "features": [
+      "U2_entropy",
+      "U2_margin",
+      "P2_max",
+      "P2_BG",
+      "P2_NCR",
+      "P2_ED",
+      "P2_ET",
+      "Delta_U_entropy",
+      "Delta_U_margin",
+      "Delta_P_ET",
+      "Delta_P_TC",
+      "L1_disp",
+      "L2_disp",
+      "rho_F",
+      "E_ratio",
+      "oof_g1_pred"
+    ]
+  },
+  "gate2_baseline_deployment": {
+    "path": "checkpoints/gate2_baseline_deployment.pt",
+    "sha256": "3b59a5884720824f9cd479982f4ad45b25e2a00011596b11affa20b3856f6f25",
+    "model_type": "Ridge",
+    "in_dim": 7,
+    "features": [
+      "U2_entropy",
+      "U2_margin",
+      "P2_BG",
+      "P2_NCR",
+      "P2_ED",
+      "P2_ET",
+      "P2_max"
+    ]
+  }
+}

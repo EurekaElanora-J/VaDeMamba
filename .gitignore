@@ -1,0 +1,80 @@
+# Python bytecode, test, and build caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments and configuration
+venv/
+.venv/
+env/
+conda-env/
+.env
+.env.*
+!.env.example
+
+# Raw medical data and derived binary caches (never track patient data)
+data/raw/
+*.nii
+*.nii.gz
+*.mha
+*.pt
+*.pth
+*.npz
+checkpoints/*
+!checkpoints/deployment_predictors_manifest.json
+
+# Local workspace, historical, and quarantine material
+brain/
+quarantine/
+experiment0_revised_pilot/
+oracle_analysis/
+
+# Generated results: publish no sealed outputs until artifact review is complete.
+# The curation note is the sole release-tracked result-side artifact.
+results/*
+!results/codebase_audit/
+results/codebase_audit/*
+!results/codebase_audit/public_artifact_curation.md
+
+# Only the locked cohort manifest is public split provenance.
+data/splits/*
+!data/splits/cohort_split_manifest.json
+
+# Keep the release focused on the audited active execution path.
+experiments/*
+!experiments/train_main_backbone.py
+!experiments/harvest_experiment2_dev_features.py
+!experiments/evaluate_gate2_candidates_dev_oof.py
+!experiments/train_hardened_deployment_predictors.py
+!experiments/run_final_test_campaign.py
+!experiments/generate_final_figures_and_tables.py
+
+src/analysis/
+src/data/*
+!src/data/preprocessing.py
+!src/data/patch_sampler.py
+src/models/*
+!src/models/modular_backbone.py
+!src/models/benefit_predictor.py
+
+# IDE, operating-system, and temporary local artifacts
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Scratch and temporary caches
+scratch/
+*.tmp
+*.bak
+*.log
+*.jsonl
+*.pdf

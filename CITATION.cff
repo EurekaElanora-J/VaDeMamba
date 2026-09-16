@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or methodology in your research, please cite it as below."
+# TODO: replace the placeholder author entry with verified author metadata before release.
+authors:
+  - name: "VaDeMamba Authors"
+title: "VaDeMamba: Learning the Value of Mamba Depth for Spatially Adaptive 3D Brain Tumor Segmentation"
+version: 1.0.0
+date-released: 2026-09-16
+# TODO: add the public repository URL only after the repository is created.
+license: Apache-2.0
+keywords:
+  - medical image segmentation
+  - brain tumor segmentation
+  - state space models
+  - mamba
+  - adaptive computation
+  - deep supervision

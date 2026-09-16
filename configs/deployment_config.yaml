@@ -1,0 +1,70 @@
+# VaDeMamba Deployment Configuration
+# Paper: "VaDeMamba: Learning the Value of Mamba Depth for Spatially Adaptive 3D Brain Tumor Segmentation"
+
+backbone:
+  checkpoint: "checkpoints/main_backbone_best.pt"
+  in_channels: 4
+  stem_channels: [48, 96]
+  num_classes: 4
+  d_state: 16
+  d_conv: 3  # Depthwise Conv3d kernel size in BidirectionalMambaBlock3D
+  expand: 1
+  spatial_shape: [128, 128, 128]
+  latent_shape: [32, 32, 32]
+  tile_shape: [16, 16, 16]
+  num_tiles: 8
+
+cascade_budget:
+  M1: 4  # Number of tiles receiving complete Block 2 (out of 8)
+  M2: 2  # Number of tiles receiving complete Block 3 (out of M1=4 candidate set)
+  final_distribution: "2 K1 + 4 K2 + 2 K3"
+  whole_model_gmac: 7.973
+  gmac_reduction: "18.4%"
+  end_to_end_latency: "unavailable: no valid end-to-end latency claimed; compute claim is analytical GMAC only"
+
+gate1:
+  checkpoint: "checkpoints/gate1_deployment.pt"
+  type: "mlp"
+  input_dim: 7
+  hidden_dims: [32, 16]
+  loss: "HuberLoss"
+  target: "Delta_E_12"
+  feature_family: "family_b1"
+  features:
+    - "U1_entropy"
+    - "U1_margin"
+    - "P1_BG"
+    - "P1_NCR"
+    - "P1_ED"
+    - "P1_ET"
+    - "P1_max"
+
+gate2:
+  checkpoint: "checkpoints/gate2_deployment.pt"
+  type: "linear_pairwise_ranknet"
+  input_dim: 16
+  representation: "Z2"
+  target: "Delta_E_23_rank"
+  description: "Cross-stage depth-response representation combining Exit 2 uncertainty with residual features"
+  features:
+    - "U2_entropy"
+    - "U2_margin"
+    - "P2_max"
+    - "P2_BG"
+    - "P2_NCR"
+    - "P2_ED"
+    - "P2_ET"
+    - "Delta_U_entropy"
+    - "Delta_U_margin"
+    - "Delta_P_ET"
+    - "Delta_P_TC"
+    - "L1_disp"
+    - "L2_disp"
+    - "rho_F"
+    - "E_ratio"
+    - "oof_g1_pred"
+
+hardware_runtime:
+  scan_implementation: "chunked_associative_scan"
+  device: "cuda"
+  torch_dtype: "float32"
