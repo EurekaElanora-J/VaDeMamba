@@ -6,7 +6,7 @@ authors:
 title: "VaDeMamba: Learning the Value of Mamba Depth for Spatially Adaptive 3D Brain Tumor Segmentation"
 version: 1.0.0
 date-released: 2026-09-16
-# TODO: add the public repository URL only after the repository is created.
+repository-code: "https://github.com/EurekaElanora-J/VaDeMamba"
 license: Apache-2.0
 keywords:
   - medical image segmentation
