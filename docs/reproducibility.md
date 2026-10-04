@@ -2,7 +2,9 @@
 
 **Paper Title**: *VaDeMamba: Learning the Value of Mamba Depth for Spatially Adaptive 3D Brain Tumor Segmentation*
 
-This document provides exact step-by-step instructions to reproduce all experimental findings, tables (1–10), and figures (1–10) reported in the paper.
+This document distinguishes public code inspection from authorized reproduction
+using retained sealed artifacts. The public clone does not contain patient data,
+weight binaries, or patient-derived final-test outputs.
 
 ---
 
@@ -53,8 +55,39 @@ All 40 scans from 28 subjects are strictly partitioned by patient identity into 
 
 ## 4. Reproduction Workflows
 
-### Mode A: Reproducing Tables and Figures from Retained Evaluation Artifacts (Fast / No GPU or BraTS Required)
-The retained sealed per-scan CSVs are authoritative historical artifacts. They retain historical `AdaDepth_*` column names, whereas the corrected active generator consumes `VaDeMamba_*` columns and `pred_vademamba` visual-cache keys. Do not run the current generator on the retained final artifacts until a read-only schema-compatibility adapter is reviewed and added; such an adapter must rename fields in memory only and must not rewrite sealed artifacts.
+### Mode A: Inspecting Final Manuscript Tables from Retained Artifacts (No GPU or BraTS Required)
+
+The submitted manuscript's Table 6 controlled comparison and Table 8 mechanism
+validation are supported by separately retained sealed artifacts. The public
+clone excludes those artifacts. With authorized access, use the read-only
+reporter; it prints to stdout and does not rerun the 12-scan campaign:
+
+```bash
+python experiments/report_final_manuscript_artifacts.py \
+  --controlled-json path/to/reviewer_raw_metrics.json \
+  --gate1-csv path/to/mech_k12_tile_data.csv \
+  --gate2-csv path/to/mech_k23_tile_data.csv
+```
+
+The reporter loads the four Table 6 methods (Full $K_3$, Entropy, MSP, and
+VaDeMamba 4/2) directly from the controlled-comparison artifact. It keeps
+analytical GMAC, measured synchronized wall-clock latency, peak GPU memory, and
+segmentation quality as distinct reported quantities.
+
+For Table 8 it calculates descriptive association/ranking statistics from the
+retained tile records: Gate 1 is continuous $\Delta E_{1\to2}$ prediction and
+Gate 2 is ordinal 16-D RankNet ordering, not calibrated $\Delta E$ regression.
+The in-memory adapter accepts historical `AdaDepth_*` columns only where they
+are relevant to old per-scan schema; it never rewrites sealed files.
+
+The retained tile schemas do not encode the original 10,000-permutation
+protocol. The reporter therefore does not recompute or approximate those
+manuscript p-values; they remain sealed retained evidence.
+
+`generate_final_figures_and_tables.py` is preserved as a legacy
+retained-artifact generator. It is not the reporting path for final-manuscript
+Tables 6 and 8 because its historical latency fields predate the controlled
+comparison.
 
 ---
 
@@ -67,7 +100,7 @@ To evaluate the sealed final test cohort using pretrained checkpoints obtained s
    ```bash
    python experiments/run_final_test_campaign.py
    ```
-   This script evaluates all 12 test scans across Fixed $K_1$, Fixed $K_2$, Fixed $K_3$, Matched Random 4/2 (5 seeds), Proposed VaDeMamba (4/2), Ablations C & D, and the Retrospective 4/2 Oracle.
+   This script evaluates all 12 test scans across Fixed $K_1$, Fixed $K_2$, Fixed $K_3$, Matched Random 4/2 (5 seeds), Proposed VaDeMamba (4/2), Ablations C & D, and the Retrospective 4/2 Oracle. It is a sealed-campaign workflow and must not be rerun merely to inspect reported final results.
 3. **Regenerate Presentation Artifacts**:
    ```bash
    python experiments/generate_final_figures_and_tables.py
@@ -99,10 +132,13 @@ To train the entire pipeline from scratch:
    ```bash
    python experiments/run_final_test_campaign.py
    ```
-6. **Generate Tables and Figures**:
+6. **Generate Legacy Tables and Figures**:
    ```bash
    python experiments/generate_final_figures_and_tables.py
    ```
+
+   For final-manuscript Tables 6 and 8, use Mode A's reporter against the
+   retained controlled-comparison and mechanism artifacts instead.
 
 ---
 

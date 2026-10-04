@@ -52,6 +52,7 @@ experiments/*
 !experiments/train_hardened_deployment_predictors.py
 !experiments/run_final_test_campaign.py
 !experiments/generate_final_figures_and_tables.py
+!experiments/report_final_manuscript_artifacts.py
 
 src/analysis/
 src/data/*
