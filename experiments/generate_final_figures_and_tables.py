@@ -1,9 +1,14 @@
 """
 Generate Publication-Grade Figures and Tables for VaDeMamba (Hardened & Audited)
 ---------------------------------------------------------------------------------
-Generates all 10 required figures (300 DPI PNG) and all 10 required tables
-(CSV and formatted Markdown) directly from final evaluation artifacts.
-Uses VaDeMamba terminology exclusively; no retired names or invalid latency claims.
+Legacy retained-artifact generator for the pre-alignment table/figure set.
+
+It remains available for historical provenance, but it is not the reporting
+path for the submitted manuscript's controlled-comparison Table 6 or mechanism
+validation Table 8.  Those are reported read-only from authorized retained
+artifacts by ``experiments/report_final_manuscript_artifacts.py``.  In
+particular, the legacy generator's latency-unavailable fields must not be used
+to describe the manuscript's separately measured controlled comparison.
 """
 
 import os
